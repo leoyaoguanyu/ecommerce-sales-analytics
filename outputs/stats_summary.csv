@@ -1,0 +1,19 @@
+test,value,p_value
+orders: on-time,89182.0,
+orders: late,6378.0,
+late share of delivered orders (%),6.67,
+avg review: on-time,4.29,
+avg review: late,2.27,
+Mann-Whitney U (late < on-time),102901001.5,0.0
+negative-review rate: on-time (%),9.2,
+negative-review rate: late (%),62.4,
+negative-review rate ratio (late / on-time),6.75,
+chi-square (lateness x negative review),15075.5,0.0
+logistic regression ROC-AUC (hold-out),0.73,
+logistic regression training rows,71670.0,
+odds ratio per SD: delivery_days,1.873,
+odds ratio per SD: item_count,1.564,
+odds ratio per SD: days_late,1.294,
+odds ratio per SD: max_installments,1.057,
+odds ratio per SD: log_gmv,0.969,
+odds ratio per SD: freight_share,0.961,

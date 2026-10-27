@@ -1,0 +1,74 @@
+// =====================================================================
+// DAX measures for the Olist Sales & Customer dashboard.
+// Create each one with: Home -> New measure, paste ONE block, press Enter.
+// Put them all on the fct_orders table (or a "_Measures" table).
+// =====================================================================
+
+// ---------- Date table (Modeling -> New table) -------------------------
+Date =
+ADDCOLUMNS (
+    CALENDAR ( DATE ( 2017, 1, 1 ), DATE ( 2018, 8, 31 ) ),
+    "Year", YEAR ( [Date] ),
+    "Month Start", DATE ( YEAR ( [Date] ), MONTH ( [Date] ), 1 ),
+    "Month", FORMAT ( [Date], "yyyy-mm" ),
+    "Quarter", "Q" & QUARTER ( [Date] ) & " " & YEAR ( [Date] )
+)
+
+// ---------- Core KPIs --------------------------------------------------
+GMV = SUM ( fct_orders[gmv] )
+
+Orders = COUNTROWS ( fct_orders )
+
+AOV = DIVIDE ( [GMV], [Orders] )
+
+Customers = DISTINCTCOUNT ( fct_orders[customer_unique_id] )
+
+Avg Review = AVERAGE ( fct_orders[review_score] )
+
+// is_late is 1/0 for delivered orders and blank otherwise,
+// so COUNT() only counts delivered orders.
+Late Rate = DIVIDE ( SUM ( fct_orders[is_late] ), COUNT ( fct_orders[is_late] ) )
+
+Negative Review Rate =
+DIVIDE (
+    CALCULATE ( COUNTROWS ( fct_orders ), fct_orders[review_score] <= 2 ),
+    COUNT ( fct_orders[review_score] )
+)
+
+Avg Delivery Days = AVERAGE ( fct_orders[delivery_days] )
+
+// ---------- Time intelligence (needs the Date table + relationship) ----
+GMV Prev Month = CALCULATE ( [GMV], DATEADD ( 'Date'[Date], -1, MONTH ) )
+
+GMV MoM % = DIVIDE ( [GMV] - [GMV Prev Month], [GMV Prev Month] )
+
+// Average of the current and two previous months (matches the SQL query).
+GMV 3M Avg =
+VAR LastDate = MAX ( 'Date'[Date] )
+VAR Months =
+    CALCULATETABLE (
+        VALUES ( 'Date'[Month Start] ),
+        DATESINPERIOD ( 'Date'[Date], LastDate, -3, MONTH )
+    )
+RETURN
+    AVERAGEX (
+        Months,
+        VAR m = 'Date'[Month Start]
+        RETURN CALCULATE ( [GMV], REMOVEFILTERS ( 'Date' ), 'Date'[Month Start] = m )
+    )
+
+// ---------- Category / item level --------------------------------------
+Item GMV = SUM ( fct_order_items[line_gmv] )
+
+Category Share % = DIVIDE ( [Item GMV], CALCULATE ( [Item GMV], ALL ( dim_product ) ) )
+
+// ---------- Customers --------------------------------------------------
+Repeat Customers =
+COUNTROWS (
+    FILTER ( VALUES ( fct_orders[customer_unique_id] ), CALCULATE ( [Orders] ) > 1 )
+)
+
+Repeat Customer Rate = DIVIDE ( [Repeat Customers], [Customers] )
+
+Segment GMV Share % =
+DIVIDE ( SUM ( dim_customer[monetary] ), CALCULATE ( SUM ( dim_customer[monetary] ), ALL ( dim_customer ) ) )

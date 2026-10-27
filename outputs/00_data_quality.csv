@@ -1,0 +1,11 @@
+severity,check_name,failing_rows
+blocking,delivered before purchase,0
+blocking,negative price or freight,0
+blocking,order item rows lost in cleaning,0
+blocking,order rows lost in cleaning,0
+blocking,order with more than one review after dedup,0
+info,delivered status but no delivery date,8
+info,duplicate review rows removed,551
+info,orders where payment differs from GMV by > 1,249
+info,products with no category,610
+info,valid orders with no items,8
