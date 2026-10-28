@@ -31,9 +31,11 @@ Avg Review = AVERAGE ( fct_orders[review_score] )
 // so COUNT() only counts delivered orders.
 Late Rate = DIVIDE ( SUM ( fct_orders[is_late] ), COUNT ( fct_orders[is_late] ) )
 
+// COUNT (not COUNTROWS) in the numerator: orders with no review have a
+// blank score, and DAX treats BLANK <= 2 as TRUE.
 Negative Review Rate =
 DIVIDE (
-    CALCULATE ( COUNTROWS ( fct_orders ), fct_orders[review_score] <= 2 ),
+    CALCULATE ( COUNT ( fct_orders[review_score] ), fct_orders[review_score] <= 2 ),
     COUNT ( fct_orders[review_score] )
 )
 
