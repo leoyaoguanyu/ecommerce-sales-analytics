@@ -76,3 +76,7 @@ Repeat Customer Rate = DIVIDE ( [Repeat Customers], [Customers] )
 
 Segment GMV Share % =
 DIVIDE ( SUM ( dim_customer[monetary] ), CALCULATE ( SUM ( dim_customer[monetary] ), ALL ( dim_customer ) ) )
+
+// Share of customers in the current filter (e.g. per RFM segment),
+// shown next to Segment GMV Share % on the Customers page.
+Customer Share % = DIVIDE ( [Customers], CALCULATE ( [Customers], ALL ( dim_customer ) ) )
