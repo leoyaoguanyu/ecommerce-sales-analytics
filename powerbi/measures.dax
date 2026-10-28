@@ -46,15 +46,15 @@ GMV MoM % = DIVIDE ( [Total GMV] - [GMV Prev Month], [GMV Prev Month] )
 
 // Average of the current and two previous months (matches the SQL query).
 GMV 3M Avg =
-VAR LastDate = MAX ( 'Date'[Date] )
-VAR Months =
+VAR CurrentEnd = MAX ( 'Date'[Date] )
+VAR MonthsInWindow =
     CALCULATETABLE (
         VALUES ( 'Date'[Month Start] ),
-        DATESINPERIOD ( 'Date'[Date], LastDate, -3, MONTH )
+        DATESINPERIOD ( 'Date'[Date], CurrentEnd, -3, MONTH )
     )
 RETURN
     AVERAGEX (
-        Months,
+        MonthsInWindow,
         VAR m = 'Date'[Month Start]
         RETURN CALCULATE ( [Total GMV], REMOVEFILTERS ( 'Date' ), 'Date'[Month Start] = m )
     )
