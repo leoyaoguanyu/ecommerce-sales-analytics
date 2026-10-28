@@ -55,8 +55,10 @@ Three pages — Executive Overview, Delivery & Satisfaction, Customers &
 Payments — built on a star schema exported from PostgreSQL
 (`powerbi/data/`), with DAX measures for KPIs, MoM growth, 3-month moving
 average and repeat rate (`powerbi/measures.dax`). Build steps:
-[`powerbi/BUILD_GUIDE.md`](powerbi/BUILD_GUIDE.md). All three pages as a
-PDF: [`powerbi/olist_dashboard.pdf`](powerbi/olist_dashboard.pdf).
+[`powerbi/BUILD_GUIDE.md`](powerbi/BUILD_GUIDE.md). Report file:
+[`powerbi/olist_dashboard.pbix`](powerbi/olist_dashboard.pbix) (open in
+Power BI Desktop to interact); all three pages as a PDF:
+[`powerbi/olist_dashboard.pdf`](powerbi/olist_dashboard.pdf).
 
 **Executive Overview** — KPIs, monthly GMV with 3-month moving average,
 top 10 categories; slicers for year, state and payment type.
