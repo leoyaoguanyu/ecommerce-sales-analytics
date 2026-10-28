@@ -54,7 +54,7 @@ items, so category charts also react to date and state slicers.
 Select table `fct_orders` -> **Home -> New measure**, paste one measure from
 `measures.dax`, Enter. Repeat for every measure. Then format:
 
-- GMV, GMV Prev Month, GMV 3M Avg, AOV, Item GMV: Currency, 0 decimals
+- Total GMV, GMV Prev Month, GMV 3M Avg, AOV, Item GMV: Currency, 0 decimals
 - Late Rate, Negative Review Rate, GMV MoM %, Category Share %, Repeat Customer Rate,
   Segment GMV Share %: Percentage, 1 decimal
 - Avg Review, Avg Delivery Days: 2 decimals
@@ -63,7 +63,7 @@ Select table `fct_orders` -> **Home -> New measure**, paste one measure from
 
 | Measure | Expected |
 |---|---|
-| GMV | 15,683,707 |
+| Total GMV | 15,683,707 |
 | Orders | 97,905 |
 | AOV | 160.19 |
 | Customers | 94,703 |
@@ -76,8 +76,8 @@ If they match, the model is correct.
 
 ## Step 5 - Page 1: Executive Overview (20 min)
 
-- **6 Card visuals** across the top: GMV, Orders, AOV, Customers, Avg Review, Late Rate.
-- **Line and clustered column chart**: X = `Date[Month]`, column y = `GMV`,
+- **6 Card visuals** across the top: Total GMV, Orders, AOV, Customers, Avg Review, Late Rate.
+- **Line and clustered column chart**: X = `Date[Month]`, column y = `Total GMV`,
   line y = `GMV 3M Avg`. Title: "Monthly GMV".
 - **Clustered bar chart**: Y = `dim_product[category]`, X = `Item GMV`.
   Filters pane -> category -> Filter type **Top N**, Show items Top 10 by `Item GMV`.
