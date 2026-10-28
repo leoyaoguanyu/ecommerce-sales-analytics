@@ -55,9 +55,21 @@ Three pages — Executive Overview, Delivery & Satisfaction, Customers &
 Payments — built on a star schema exported from PostgreSQL
 (`powerbi/data/`), with DAX measures for KPIs, MoM growth, 3-month moving
 average and repeat rate (`powerbi/measures.dax`). Build steps:
-[`powerbi/BUILD_GUIDE.md`](powerbi/BUILD_GUIDE.md).
+[`powerbi/BUILD_GUIDE.md`](powerbi/BUILD_GUIDE.md). All three pages as a
+PDF: [`powerbi/olist_dashboard.pdf`](powerbi/olist_dashboard.pdf).
 
-<!-- Screenshots: reports/figures/dashboard_*.png -->
+**Executive Overview** — KPIs, monthly GMV with 3-month moving average,
+top 10 categories; slicers for year, state and payment type.
+![Executive Overview](reports/figures/dashboard_overview.png)
+
+**Delivery & Satisfaction** — review score by delivery delay, late rate by
+state (states ≥ 10% in red), and delivery time vs. review score with
+average lines splitting states into quadrants.
+![Delivery & Satisfaction](reports/figures/dashboard_delivery.png)
+
+**Customers & Payments** — RFM segments (share of customers vs. share of
+GMV), payment mix, and AOV by credit-card instalments.
+![Customers & Payments](reports/figures/dashboard_customers.png)
 
 ## How it works
 
